@@ -36,6 +36,9 @@ import time
 import tempfile
 import atexit
 
+from dotenv import load_dotenv
+load_dotenv()
+
 # Streamlit for web interface
 import streamlit as st
 
@@ -43,6 +46,89 @@ import streamlit as st
 from dotenv import load_dotenv
 import PyPDF2
 
+st.markdown(
+    """
+    <style>
+        /* Main background – vaporwave fruit galaxy */
+        [data-testid="stAppViewContainer"] {
+             
+            color: #f8f8f8;
+        }
+
+     
+
+        /* Sidebar – kiwi + neon purple */
+        [data-testid="stSidebar"] {
+            background: linear-gradient(180deg, #222 0%, #4b0082 100%);
+            color: #f0f0f0;
+            border-right: 2px solid #ff00ff;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.6);
+        }
+
+        
+
+        /* Normal text – retro console style */
+        p, div, span {
+            font-family: "Share Tech Mono", monospace;
+            color: #e6e6e6;
+        }
+
+        /* Buttons – glowing mango/pineapple gradient */
+        button[kind="primary"] {
+            background: linear-gradient(90deg, #ffcc33, #ff4b2b);
+            color: #000;
+            border-radius: 12px;
+            border: 2px solid #ff00ff;
+            font-weight: bold;
+            text-transform: uppercase;
+            box-shadow: 0 0 12px #ffcc33, 0 0 24px #ff00ff;
+            transition: all 0.3s ease-in-out;
+        }
+
+        button[kind="primary"]:hover {
+            transform: scale(1.1) rotate(-1deg);
+            box-shadow: 0 0 20px #ff4b2b, 0 0 40px #00f0ff;
+        }
+
+        /* Inputs – banana neon borders */
+        input, textarea {
+            border: 2px solid #ffff66;
+            border-radius: 6px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #ffff99;
+            font-family: "Share Tech Mono", monospace;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #ff00ff;
+            box-shadow: 0 0 12px #ff00ff, 0 0 24px #00f0ff;
+            outline: none;
+        }
+
+        /* Scrollbar – grape soda purple */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111;
+      }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #8e2de2, #ff0080);
+            border-radius: 10px;
+            box-shadow: 0 0 8px #ff0080;
+        }
+        /* Make st.info, st.warning, st.success fully opaque */
+        .stAlert {
+            background-color: #00aaff !important;  /* Change color as desired */
+            color: #ffffff !important;             /* Text color */
+            border: 2px solid #0077cc !important;  /* Optional border */
+            box-shadow: 0 0 8px #00aaff !important; /* Optional glow */
+            opacity: 1 !important;                 /* Remove transparency */
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 # LangChain components for AI and document processing
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.embeddings import BedrockEmbeddings
@@ -291,8 +377,8 @@ def reindex_knowledgebase():
 
 # --- STREAMLIT APPLICATION SETUP ---
 # Configure the main page
-st.set_page_config(page_title="🧠 GenAI Bedrock Knowledgebase")
-st.title("🧠 GenAI Bedrock Knowledgebase")
+st.set_page_config(page_title="🍓 THE FRUIT CAPACITOR")
+st.title("🍓 THE FRUIT CAPACITOR")
 
 # --- NAVIGATION SIDEBAR ---
 # Initialize session state for page navigation (remembers which page user is on)
@@ -306,7 +392,7 @@ if 'vectorstore_loaded' not in st.session_state:
 st.sidebar.title("🧭 Navigation")
 
 # Create navigation buttons for different pages
-if st.sidebar.button("💬 Ask Questions", use_container_width=True):
+if st.sidebar.button("🍌 Examine Fruit", use_container_width=True):
     st.session_state.current_page = "Ask Questions"
 
 if st.sidebar.button("📤 Upload Files / Re-Index", use_container_width=True):
@@ -379,6 +465,7 @@ if page == "Upload Files":
                     
             except Exception as e:
                 st.error(f"❌ Error processing {file.name}: {e}")
+
 
 # --- PAGE 2: DELETE FILES ---
 elif page == "Delete Files":
@@ -473,7 +560,7 @@ elif page == "Delete Files":
 
 # --- PAGE 3: ASK QUESTIONS ---
 elif page == "Ask Questions":
-    st.header("💬 Ask Questions")
+    st.header("🍌 Examine Fruit")
 
     # Check if vectorstore is loaded and functional
     if 'vectorstore' not in st.session_state or not st.session_state.vectorstore_loaded:
